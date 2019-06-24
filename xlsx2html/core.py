@@ -157,8 +157,8 @@ def worksheet_to_data(ws, locale=None):
         data_row = []
         data_list.append(data_row)
         for col_i, cell in enumerate(row):
-            col_dim = ws.column_dimensions[cell.column]
-            row_dim = ws.row_dimensions[cell.row]
+            col_dim = ws.column_dimensions[str(cell.column)]
+            row_dim = ws.row_dimensions[str(cell.row)]
 
             width = 0.89
             if col_dim.customWidth:
@@ -261,8 +261,5 @@ def render_data_to_html(data):
 
 def xlsx2html(filepath, output):
     ws = openpyxl.load_workbook(filepath, data_only=True).active
-    data = worksheet_to_data(ws, locale='ru')
-    html = render_data_to_html(data)
-
-    with open(output, 'wb') as f:
-        f.write(six.binary_type(html.encode('utf-8')))
+    data = worksheet_to_data(ws)
+    return render_data_to_html(data)
