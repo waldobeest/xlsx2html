@@ -259,7 +259,6 @@ def render_data_to_html(data):
     return html % render_table(data)
 
 
-def xlsx2html(filepath, output):
-    ws = openpyxl.load_workbook(filepath, data_only=True).active
+def xlsx2html(ws):
     data = worksheet_to_data(ws)
     return render_data_to_html(data)
